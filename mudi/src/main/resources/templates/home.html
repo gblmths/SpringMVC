@@ -1,0 +1,55 @@
+<html>
+	<head th:replace="~{basic :: head}"></head>
+	
+<body>
+
+	<header th:replace="~{basic :: logo}">
+	</header>
+		
+	<main class="container">
+	<div class="jumbotron mb-4 mt-4">
+		  <div class="container">
+		    <h1 class="display-4">Ultimos Pedidos</h1>
+		  </div>
+	</div>
+		
+		<setcion>
+			<div class="card mb-4" th:each="pedidos: ${pedido}" >
+				<th:block th:switch="${#strings.toString(pedidos.status)}">
+					<div class="card-header alert-info" th:text="${pedidos.nomeProduto}">Nome do Produto</div>
+				</th:block>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-sm-8 mb-3">
+								<div>Valor: <span th:if="${pedidos.valorNegociavel} != null"  th:text="${'R$' + #numbers.formatDecimal(pedidos.valorNegociavel,3,'POINT',2,'COMMA')}">200,90</span></div>
+								<div>Data da entrega:<span th:text="${#temporals.format(pedidos.dataEntrega, 'dd/MM/yyyy')}">10/06/2022</span> </div>
+								
+								<div>Produto</div>
+									<div>
+										<input class="form-control" th:value="${pedidos.urlProduto}" />
+									</div>	
+								
+								<div>descrição:</div>
+								<div>
+									<textarea class="form-control" th:text="${pedidos.descricao}">Descrição do pedido:</textarea>
+								</div>
+							</div>
+							<div class="col-12 col-sm-4">
+								<div>
+									<img class="img-thumbnail" th:src="${pedidos.urlImagem}"  src=""/>
+								</div>
+							</div>
+						</div>	
+					</div>
+			</div>
+		</setcion>	
+	</main>
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+</body>	
+	
+</html>	
+	

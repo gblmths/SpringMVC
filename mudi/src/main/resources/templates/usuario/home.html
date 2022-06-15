@@ -1,0 +1,72 @@
+<html>
+	<head th:replace="~{basic :: head}"></head>
+	
+<body>
+
+	<header th:replace="~{basic :: logo}">
+	</header>
+		
+	<main class="container">
+	<div class="jumbotron mb-0">
+		  <div class="container">
+		    <h1 class="display-4">Meus Pedidos</h1>
+		  </div>
+	</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light mb-5 d-flex justify-content-between">
+			 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    			<span class="navbar-toggler-icon"></span>
+  			</button>
+  			<div class="collapse navbar-collapse" id="#navbarNavAltMarkup">
+				<div class="navbar-nav">
+						<a th:classappend="${status} == null ? 'active'" class="nav-item nav-link" th:href="@{/usuario/pedido}">Todos</a>
+						<a th:classappend="${status} == 'aguardando' ? 'active'" class="nav-item nav-link " th:href="@{/usuario/pedido/aguardando}">Aguardando</a>
+						<a th:classappend="${status} == 'aprovado' ? 'active'" class="nav-item nav-link " th:href="@{/usuario/pedido/aprovado}">Aprovados</a>
+						<a th:classappend="${status} == 'entregue' ? 'active'" class="nav-item nav-link " th:href="@{/usuario/pedido/entregue}">Entregues</a>
+				 </div>
+			 </div>
+			 <div>
+			 	   <a href="/pedido/formulario"><button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Novo</button></a>
+			 </div>
+		</nav>
+		<setcion>
+			<div class="card mb-4" th:each="pedidos: ${pedido}" >
+				<th:block th:switch="${#strings.toString(pedidos.status)}">
+					<div th:case="'AGUARDANDO'" class="card-header alert-warning" th:text="${pedidos.nomeProduto}">Nome do Produto</div>
+					<div th:case="'APROVADO'" class="card-header alert-success" th:text="${pedidos.nomeProduto}">Nome do Produto</div>
+					<div th:case="'ENTREGUE'" class="card-header alert-info" th:text="${pedidos.nomeProduto}">Nome do Produto</div>
+				</th:block>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-12 col-sm-8 mb-3">
+								<div>Valor: <span th:if="${pedidos.valorNegociavel} != null"  th:text="${'R$' + #numbers.formatDecimal(pedidos.valorNegociavel,3,'POINT',2,'COMMA')}">200,90</span></div>
+								<div>Data da entrega:<span th:text="${#temporals.format(pedidos.dataEntrega, 'dd/MM/yyyy')}">10/06/2022</span> </div>
+								
+								<div>Produto</div>
+									<div>
+										<input class="form-control" th:value="${pedidos.urlProduto}" />
+									</div>	
+								
+								<div>Descrição:</div>
+								<div>
+									<textarea class="form-control" th:text="${pedidos.descricao}">Descrição do pedido:</textarea>
+								</div>
+							</div>
+							<div class="col-12 col-sm-4">
+								<div>
+									<img class="img-thumbnail" th:src="${pedidos.urlImagem}"  src=""/>
+								</div>
+							</div>
+						</div>	
+					</div>
+			</div>
+		</setcion>	
+	</main>
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+
+</body>	
+	
+</html>	
+	

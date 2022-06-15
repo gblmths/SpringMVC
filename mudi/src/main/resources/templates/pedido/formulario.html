@@ -1,0 +1,61 @@
+<html>
+	<head th:replace="~{basic :: head}">
+
+	</head>
+		
+	<body>
+	
+		<header th:replace="~{basic :: logo}">
+		</header>
+	
+		<main class="container">
+			<div class="jumbotron mb-3">
+				  <div class="container">
+				    <h1 class="display-4">Novo Pedido</h1>
+				  </div>
+			</div>
+			<section>
+			 	<div class="card">
+			 		<div class="card-body">
+				 		<form th:object="${requisicaoPedido}"  th:action="@{/pedido/novo}" method="POST">
+				 		
+				 		 <div class="form-group">
+						    <label for="nomeProduto">Produto:</label>
+						    <input th:field="*{nomeProduto}" type="text" class="form-control" name="nomeProduto" placeholder="nome do produto" aria-describedby="produtoHelp">
+						    <small id="produtoHelp" class="form-text text-muted">Informa qual o nome do produto</small>
+						     	<div class="alert alert-danger" role="alert" th:errors="*{nomeProduto}">	
+						  		</div>
+						  </div>
+						 
+						  
+						   <div class="form-group">
+						    <label for="urlProduto">Url:</label>
+						    <input th:field="*{urlProduto}" type="text" class="form-control" name="urlProduto" placeholder="url do produto" aria-describedby="urlHelp">
+						    <small id="urlHelp" class="form-text text-muted">Informa qual o url do produto</small>
+						    	<div class="alert alert-danger" role="alert" th:errors="*{urlProduto}">	
+						  		</div>
+						  </div>
+						  
+						   <div class="form-group">
+						    <label for="urlImagem">Imagem:</label>
+						    <input th:field="*{urlImagem}" type="text" class="form-control" name="urlImagem" placeholder="imagem do produto" aria-describedby="imagemHelp">
+						    <small id="imagemHelp" class="form-text text-muted">Informa qual o imagem do produto</small>
+						    	<div class="alert alert-danger" role="alert" th:errors="*{urlImagem}">	
+						  		</div>
+						  </div>
+						  
+						   <div class="form-group">
+						    <label for="descricao">Descrição:</label>
+						    <textarea th:field="*{descricao}" type="text" class="form-control" name="descricao" placeholder="Adicione detalhes sobre o produto" aria-describedby="imagemHelp"></textarea>			
+						  </div>
+						    
+							<button type="submit" class="btn btn-primary">Cadastrar</button>
+						  
+				 		</form>
+			 		</div>
+				</div>
+			</section>
+		</main>
+		
+	</body>
+</html>	
